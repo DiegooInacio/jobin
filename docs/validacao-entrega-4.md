@@ -1,6 +1,10 @@
 # Validação da entrega 4
 
-Estado: **preparada; instalação e validação completa pendentes; sem commit**.
+Estado: **entrega 4 validada pelo usuário e commitada**.
+
+Commit: `548bb23 feat: configurando banco e esquema inicial`.
+O usuário informou que todos os comandos de validação passaram antes do commit.
+Os bloqueios abaixo registram as limitações do ambiente do agente na ocasião.
 
 ## Escopo
 

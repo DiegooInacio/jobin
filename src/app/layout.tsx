@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { AppShell } from "@/components/layout/app-shell";
 
 const inter = localFont({
   src: [
@@ -23,9 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.variable}>
-        <AppShell>{children}</AppShell>
-      </body>
+      <body className={inter.variable}>{children}</body>
     </html>
   );
 }

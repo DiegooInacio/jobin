@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { SignOutButton } from "@/components/sign-out-button";
 import { Icon } from "@/components/ui/icon";
 
 const navigation = [
@@ -12,7 +13,13 @@ const navigation = [
   { href: "/curriculos", label: "Currículos" },
 ];
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({
+  children,
+  email,
+}: {
+  children: ReactNode;
+  email?: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -40,10 +47,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
         <div className="workspace-label">
-          <span className="preview-label">Dados de exemplo</span>
-          <span className="workspace-avatar" aria-label="Espaço pessoal">
-            J
+          <span className="workspace-email" title={email}>
+            {email ?? "Meu espaço"}
           </span>
+          <span className="workspace-avatar" aria-label="Conta conectada">
+            {email?.charAt(0).toUpperCase() ?? "J"}
+          </span>
+          <SignOutButton />
         </div>
       </header>
       <main id="conteudo" tabIndex={-1}>

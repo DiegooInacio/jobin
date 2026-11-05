@@ -1,6 +1,7 @@
 import type { SVGProps } from "react";
 
 const paths = {
+  eye: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
   close: "m6 6 12 12 M18 6 6 18",
   chevronDown: "m6 9 6 6 6-6",
   filter: "M4 7h16 M4 17h16 M9 4v6 M15 14v6",

@@ -4,11 +4,11 @@ Aplicação web pessoal para descobrir vagas compatíveis com o perfil profissio
 
 ## Estado do projeto
 
-Estrutura visual implementada e aprovada (entrega 3). A entrega 4 prepara
-PostgreSQL local, Drizzle, migration inicial e testes de banco. A instalação das
-novas dependências e os testes de integração ainda precisam ser concluídos.
-O quadro continua usando exemplos fictícios; autenticação e cadastros serão
-implementados nas próximas entregas.
+Entregas 1 a 4 concluídas. A entrega 5 implementa login, logout, sessão em cookies e
+controle de acesso com Supabase Auth. As verificações de qualidade estão aprovadas;
+a conferência do fluxo real de autenticação e dos testes de integração permanece
+pendente. O quadro continua usando
+exemplos fictícios, sem cadastro de vagas ou candidaturas reais.
 
 ## Desenvolvimento local
 
@@ -25,9 +25,13 @@ pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-Acesse <http://localhost:3000>. A interface de demonstração pode ser aberta sem
-banco. Para trabalhar na persistência, siga a configuração abaixo. O Supabase será
-configurado na entrega de autenticação.
+Acesse <http://localhost:3000/login>. As páginas agora exigem uma sessão válida.
+Configure o Supabase seguindo o [guia de autenticação](docs/autenticacao.md) e mantenha
+o PostgreSQL de desenvolvimento disponível para sincronizar a conta no login.
+O build não exige um projeto Supabase ou conexão PostgreSQL.
+
+Para esta entrega, use `pnpm install` uma vez para atualizar o lockfile com os
+pacotes Supabase; depois volte a usar `--frozen-lockfile`.
 
 ## Banco de dados local
 
@@ -48,7 +52,8 @@ para ambiente local. Se alterar usuário, senha ou portas, ajuste também as URL
 O Compose lê `.env`; evite duplicar essas variáveis em `.env.local`.
 
 O esquema inicial contém somente `users`, com UUID fornecido pela autenticação,
-data de criação e RLS habilitada, sem políticas de acesso públicas nesta fase.
+data de criação e RLS habilitada, sem políticas de acesso direto. O backend confirma a identidade no Supabase e
+restringe as consultas ao proprietário da sessão.
 As relações e tabelas de negócio serão introduzidas junto às funcionalidades.
 A aplicação acessará o banco pelo módulo de servidor `src/db/client.ts`.
 
@@ -98,15 +103,17 @@ usados por um servidor de desenvolvimento aberto em outro terminal.
 
 Execute `pnpm test` com o banco dedicado disponível para conferir migrations,
 restrições e proteção da configuração de testes. O CI executa `pnpm run check`
-e `pnpm test`. Veja os registros de validação das entregas
+e `pnpm test`. Use `pnpm run test:auth` para os testes de autenticação com respostas
+controladas, sem depender de Supabase real. Veja os registros de validação das entregas
 [2](docs/validacao-entrega-2.md), [3](docs/validacao-entrega-3.md) e
-[4](docs/validacao-entrega-4.md).
+[4](docs/validacao-entrega-4.md) e [5](docs/validacao-entrega-5.md).
 
 ## Documentação
 
 - [Escopo do produto](docs/escopo.md)
 - [Arquitetura inicial](docs/arquitetura.md)
 - [Plano de entregas e validação](docs/entregas.md)
+- [Configuração da autenticação](docs/autenticacao.md)
 
 ## Direção visual
 
@@ -118,5 +125,5 @@ As visualizações alternativas em lista e tabela serão adicionadas na entrega 
 
 Usar o formato `tipo: descrição em português brasileiro`, com o verbo no gerúndio, com tipos como `docs`, `chore`, `feat`, `fix`, `refactor` e `test`. Cada commit deve representar uma entrega coerente e validada.
 
-Entregas 1 a 3 concluídas. A entrega 4, `feat: configurando banco e esquema inicial`,
-está preparada e aguarda instalação e validação completa antes do commit.
+Entregas 1 a 4 concluídas. A entrega 5, `feat: adicionando autenticação e controle de acesso`,
+aguarda a validação completa antes do commit.
