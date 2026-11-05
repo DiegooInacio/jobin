@@ -6,21 +6,24 @@ Usar um monólito modular: uma aplicação web com regras organizadas por funcio
 
 ## Stack
 
-| Responsabilidade | Escolha |
-| --- | --- |
-| Interface e backend | Next.js com App Router e TypeScript |
-| Componentes e estilos | Tailwind CSS e shadcn/ui |
-| Interação do Kanban | dnd-kit |
-| Banco de dados | PostgreSQL |
-| Esquema e migrations | Drizzle ORM e Drizzle Kit |
-| Autenticação | Supabase Auth |
-| Arquivos privados | Supabase Storage |
-| Validação | Zod |
-| Testes de regras e integração | Vitest e PostgreSQL dedicado a testes |
-| Testes de interface e fluxos | Testing Library e Playwright |
-| Qualidade | ESLint, Prettier e TypeScript |
-| Banco local | Docker Compose |
-| Integração contínua | GitHub Actions, se hospedado no GitHub |
+| Responsabilidade              | Escolha                                |
+| ----------------------------- | -------------------------------------- |
+| Interface e backend           | Next.js com App Router e TypeScript    |
+| Componentes e estilos         | Tailwind CSS e shadcn/ui               |
+| Interação do Kanban           | dnd-kit                                |
+| Banco de dados                | PostgreSQL                             |
+| Esquema e migrations          | Drizzle ORM e Drizzle Kit              |
+| Autenticação                  | Supabase Auth                          |
+| Arquivos privados             | Supabase Storage                       |
+| Validação                     | Zod                                    |
+| Testes de regras e integração | Vitest e PostgreSQL dedicado a testes  |
+| Testes de interface e fluxos  | Testing Library e Playwright           |
+| Qualidade                     | ESLint, Prettier e TypeScript          |
+| Banco local                   | Docker Compose                         |
+| Integração contínua           | GitHub Actions, se hospedado no GitHub |
+
+O gerenciador de pacotes é o pnpm, com versão definida no campo `packageManager`
+do `package.json` e dependências fixadas no `pnpm-lock.yaml` após a instalação.
 
 As versões compatíveis serão escolhidas no bootstrap e fixadas no arquivo de dependências e no lockfile. Provedor de hospedagem e custos ainda não foram definidos.
 
