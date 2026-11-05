@@ -18,6 +18,19 @@ describe("Configuração do Supabase", () => {
     );
     expect(getSupabaseConfig().url).toBe("https://projeto.supabase.co");
   });
+  it("rejeita a URL do painel e endereços de endpoints em vez da URL base", () => {
+    vi.stubEnv(
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "sb_publishable_exemplo",
+    );
+    for (const url of [
+      "https://supabase.com/dashboard/project/exemplo",
+      "https://projeto.supabase.co/auth/v1",
+    ]) {
+      vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", url);
+      expect(() => getSupabaseConfig()).toThrow("URL do Supabase inválida");
+    }
+  });
   it("permite HTTP apenas no ambiente local e rejeita chave secreta", () => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "http://127.0.0.1:54321");
     vi.stubEnv(

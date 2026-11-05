@@ -1,6 +1,9 @@
 # Validação da entrega 5
 
-Estado: **check e testes de autenticação aprovados; integração e conferência real pendentes; sem commit**.
+Estado: **entrega 5 commitada pelo usuário**.
+
+Commit: `cbd8830 feat: adicionando autenticação e controle de acesso`.
+Os resultados e limites abaixo registram as verificações executadas durante a entrega.
 
 ## Implementação
 

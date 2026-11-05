@@ -1,15 +1,19 @@
 import type { SelectHTMLAttributes } from "react";
-import { Icon } from "./icon";
+import { Icon, type IconName } from "./icon";
 
 export function SelectField({
   active = false,
+  icon = "filter",
   children,
   ...props
-}: SelectHTMLAttributes<HTMLSelectElement> & { active?: boolean }) {
+}: SelectHTMLAttributes<HTMLSelectElement> & {
+  active?: boolean;
+  icon?: IconName;
+}) {
   return (
     <div className={`select-field${active ? " is-active" : ""}`}>
       <Icon
-        name="filter"
+        name={icon}
         className="select-leading-icon"
         width="15"
         height="15"

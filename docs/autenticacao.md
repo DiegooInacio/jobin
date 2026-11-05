@@ -34,6 +34,11 @@ NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_sua_chave_publicavel
 ```
 
+A URL deve ser a **Project URL**, no formato `https://<referencia>.supabase.co`.
+O endereço do painel (`https://supabase.com/dashboard/project/...`) pertence à
+interface de administração e deixa o formulário indisponível se usado nessa variável.
+Também não incluir `/auth/v1` ou `/rest/v1` na URL base.
+
 Os nomes públicos não significam credenciais administrativas. O código desta entrega
 usa o SDK somente no servidor e no middleware. Não existe cliente Supabase no navegador.
 Os cookies de sessão são HttpOnly, SameSite=Lax e Secure em produção.

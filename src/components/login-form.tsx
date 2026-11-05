@@ -1,7 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useId, useState } from "react";
 import { signIn } from "@/modules/auth/actions";
 import { AuthSubmit } from "./auth-submit";
 import { Icon } from "./ui/icon";
@@ -13,7 +12,7 @@ export function LoginForm({
   next: string;
   available: boolean;
 }) {
-  const [state, action] = useFormState(signIn, {});
+  const [state, action] = useActionState(signIn, {});
   const [showPassword, setShowPassword] = useState(false);
   const emailId = useId();
   const passwordId = useId();

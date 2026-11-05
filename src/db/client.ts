@@ -16,5 +16,12 @@ export function getDb() {
     idleTimeoutMillis: 30_000,
   });
 
-  return drizzle({ client: databaseGlobal.jobinPool, schema });
+  const pool = databaseGlobal.jobinPool;
+  if (pool.listenerCount("error") === 0) {
+    // Conexões ociosas podem cair; a falha da consulta é tratada pelo caso de uso.
+    pool.on("error", () => {
+      console.error("A conexão ociosa com o PostgreSQL foi interrompida.");
+    });
+  }
+  return drizzle({ client: pool, schema });
 }
