@@ -4,10 +4,11 @@ Aplicação web pessoal para descobrir vagas compatíveis com o perfil profissio
 
 ## Estado do projeto
 
-Base técnica configurada (entrega 2): Next.js com App Router,
-TypeScript, Tailwind CSS e verificações de qualidade. A página inicial contém
-apenas uma identificação provisória. A estrutura visual e as funcionalidades
-serão implementadas nas próximas entregas.
+Estrutura visual implementada (entrega 3), com navegação entre candidaturas,
+vagas, perfil e currículos. O quadro usa dados fictícios identificados como
+demonstração, com busca e filtro locais. A conferência visual em desktop e celular
+está pendente. Cadastro, autenticação e persistência serão implementados nas
+próximas entregas.
 
 ## Desenvolvimento local
 
@@ -43,9 +44,14 @@ Use `pnpm run format` para aplicar a formatação. Após o build, execute
 O GitHub Actions executará as mesmas verificações em pushes e pull requests.
 O fluxo usa o lockfile para reproduzir a instalação.
 
+O desenvolvimento usa `.next-dev/`; o build e `pnpm start` usam `.next/`.
+Essa separação evita que uma verificação de build sobrescreva os arquivos
+usados por um servidor de desenvolvimento aberto em outro terminal.
+
 As configurações de testes de domínio, integração e fluxos serão introduzidas
 com as funcionalidades correspondentes; esta entrega não contém regras de negócio.
-Veja o [registro da validação da entrega 2](docs/validacao-entrega-2.md).
+Veja os registros de validação da [entrega 2](docs/validacao-entrega-2.md) e
+da [entrega 3](docs/validacao-entrega-3.md).
 
 ## Documentação
 
@@ -55,11 +61,14 @@ Veja o [registro da validação da entrega 2](docs/validacao-entrega-2.md).
 
 ## Direção visual
 
-O quadro de candidaturas seguirá a referência visual fornecida: colunas por etapa, cartões compactos, filtros e visualizações alternativas em lista e tabela. A tela “Vagas para você” será separada do acompanhamento de candidaturas. A interface será responsiva e em português brasileiro.
+O quadro de candidaturas segue a referência visual fornecida: navegação horizontal,
+fundo neutro, cinco colunas por etapa, cartões compactos e filtros.
+As visualizações alternativas em lista e tabela serão adicionadas na entrega 10. A tela “Vagas para você” será separada do acompanhamento de candidaturas. A interface será responsiva e em português brasileiro.
 
 ## Convenção de commits
 
 Usar o formato `tipo: descrição em português brasileiro`, com tipos como `docs`, `chore`, `feat`, `fix`, `refactor` e `test`. Cada commit deve representar uma entrega coerente e validada.
 
 Entregas 1 e 2 concluídas: documentação inicial e configuração da aplicação.
-A próxima entrega planejada é `feat: adiciona estrutura visual do Jobin`.
+A entrega 3, `feat: adiciona estrutura visual do Jobin`, está implementada e
+aguarda a conferência visual antes do commit.

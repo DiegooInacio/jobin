@@ -10,6 +10,7 @@ const eslintConfig = [
   {
     ignores: [
       ".next/**",
+      ".next-dev/**",
       "out/**",
       "coverage/**",
       "playwright-report/**",
