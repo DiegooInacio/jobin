@@ -4,11 +4,11 @@ Aplicação web pessoal para descobrir vagas compatíveis com o perfil profissio
 
 ## Estado do projeto
 
-Estrutura visual implementada (entrega 3), com navegação entre candidaturas,
-vagas, perfil e currículos. O quadro usa dados fictícios identificados como
-demonstração, com busca e filtro locais. A conferência visual em desktop e celular
-está pendente. Cadastro, autenticação e persistência serão implementados nas
-próximas entregas.
+Estrutura visual implementada e aprovada (entrega 3). A entrega 4 prepara
+PostgreSQL local, Drizzle, migration inicial e testes de banco. A instalação das
+novas dependências e os testes de integração ainda precisam ser concluídos.
+O quadro continua usando exemplos fictícios; autenticação e cadastros serão
+implementados nas próximas entregas.
 
 ## Desenvolvimento local
 
@@ -25,9 +25,57 @@ pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-Acesse <http://localhost:3000>. Nenhuma variável de ambiente ou serviço externo
-é necessário nesta entrega. Banco, Supabase e demais integrações serão
-configurados nas respectivas entregas.
+Acesse <http://localhost:3000>. A interface de demonstração pode ser aberta sem
+banco. Para trabalhar na persistência, siga a configuração abaixo. O Supabase será
+configurado na entrega de autenticação.
+
+## Banco de dados local
+
+Requisito adicional: Docker com Compose e acesso ao daemon.
+
+```bash
+cp .env.example .env
+pnpm install
+pnpm db:up
+pnpm db:migrate
+```
+
+A primeira instalação desta entrega precisa usar `pnpm install` para atualizar
+`pnpm-lock.yaml` com as dependências adicionadas; depois use `--frozen-lockfile`.
+Os comandos não sobrescrevem dados existentes. O PostgreSQL de desenvolvimento
+usa a porta 5433 e um volume persistente. As credenciais do exemplo são apenas
+para ambiente local. Se alterar usuário, senha ou portas, ajuste também as URLs.
+O Compose lê `.env`; evite duplicar essas variáveis em `.env.local`.
+
+O esquema inicial contém somente `users`, com UUID fornecido pela autenticação,
+data de criação e RLS habilitada, sem políticas de acesso públicas nesta fase.
+As relações e tabelas de negócio serão introduzidas junto às funcionalidades.
+A aplicação acessará o banco pelo módulo de servidor `src/db/client.ts`.
+
+Para criar migrations após uma alteração no esquema:
+
+```bash
+pnpm db:generate --name=descrevendo_alteracao
+pnpm db:migrate
+```
+
+As migrations e seus metadados em `drizzle/` devem ser versionados juntos.
+Não use sincronização direta do esquema para substituir migrations.
+
+Para testar usando um PostgreSQL separado e temporário:
+
+```bash
+pnpm db:test:up
+pnpm test
+```
+
+`TEST_DATABASE_URL` precisa apontar para `jobin_test`, na porta 5434 por padrão.
+Os testes aplicam migrations nesse banco e usam transações com rollback para os
+registros de teste. Não usam `DATABASE_URL`, não apagam o banco de desenvolvimento
+e não exigem Supabase. No CI, o serviço PostgreSQL nasce vazio a cada execução.
+
+Use `pnpm db:test:down` para parar o serviço de testes e `pnpm db:down` para parar
+os serviços do Compose. O volume de desenvolvimento é preservado.
 
 ## Verificações de qualidade
 
@@ -48,10 +96,11 @@ O desenvolvimento usa `.next-dev/`; o build e `pnpm start` usam `.next/`.
 Essa separação evita que uma verificação de build sobrescreva os arquivos
 usados por um servidor de desenvolvimento aberto em outro terminal.
 
-As configurações de testes de domínio, integração e fluxos serão introduzidas
-com as funcionalidades correspondentes; esta entrega não contém regras de negócio.
-Veja os registros de validação da [entrega 2](docs/validacao-entrega-2.md) e
-da [entrega 3](docs/validacao-entrega-3.md).
+Execute `pnpm test` com o banco dedicado disponível para conferir migrations,
+restrições e proteção da configuração de testes. O CI executa `pnpm run check`
+e `pnpm test`. Veja os registros de validação das entregas
+[2](docs/validacao-entrega-2.md), [3](docs/validacao-entrega-3.md) e
+[4](docs/validacao-entrega-4.md).
 
 ## Documentação
 
@@ -67,8 +116,7 @@ As visualizações alternativas em lista e tabela serão adicionadas na entrega 
 
 ## Convenção de commits
 
-Usar o formato `tipo: descrição em português brasileiro`, com tipos como `docs`, `chore`, `feat`, `fix`, `refactor` e `test`. Cada commit deve representar uma entrega coerente e validada.
+Usar o formato `tipo: descrição em português brasileiro`, com o verbo no gerúndio, com tipos como `docs`, `chore`, `feat`, `fix`, `refactor` e `test`. Cada commit deve representar uma entrega coerente e validada.
 
-Entregas 1 e 2 concluídas: documentação inicial e configuração da aplicação.
-A entrega 3, `feat: adiciona estrutura visual do Jobin`, está implementada e
-aguarda a conferência visual antes do commit.
+Entregas 1 a 3 concluídas. A entrega 4, `feat: configurando banco e esquema inicial`,
+está preparada e aguarda instalação e validação completa antes do commit.

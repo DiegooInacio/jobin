@@ -1,6 +1,9 @@
 # Validação da entrega 3
 
-Estado: **implementação pronta; conferência visual no navegador pendente**.
+Estado: **entrega 3 aprovada pelo usuário e commitada**.
+
+Commit: `e1b14f5 feat: adicionando estrutura visual do Jobin`.
+O usuário confirmou a execução local e aprovou o visual após os ajustes.
 
 ## O que foi implementado
 
@@ -73,4 +76,4 @@ Para validar no terminal do usuário:
    usar o botão “Limpar busca” e conferir o retorno do foco ao campo.
 8. Navegar pelo teclado, verificar o foco visível e usar o link “Pular para o conteúdo”.
 
-Criar o commit `feat: adiciona estrutura visual do Jobin` após a conferência visual.
+O roteiro acima permanece como referência para futuras verificações de interface.

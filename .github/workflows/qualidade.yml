@@ -9,11 +9,26 @@ permissions:
 
 jobs:
   qualidade:
-    name: Lint, tipos, formatação e build
+    name: Aplicação e banco de dados
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       NEXT_TELEMETRY_DISABLED: "1"
+      TEST_DATABASE_URL: postgresql://jobin:jobin_test_local@127.0.0.1:5432/jobin_test
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: jobin
+          POSTGRES_PASSWORD: jobin_test_local
+          POSTGRES_DB: jobin_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jobin -d jobin_test"
+          --health-interval 3s
+          --health-timeout 3s
+          --health-retries 20
     steps:
       - name: Obter código
         uses: actions/checkout@v4
@@ -28,3 +43,5 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Validar aplicação
         run: pnpm run check
+      - name: Validar migrations e restrições no PostgreSQL
+        run: pnpm test
